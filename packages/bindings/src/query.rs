@@ -24,6 +24,30 @@ pub enum TerraQuery {
     },
 }
 
+impl TerraQuery {
+    pub fn swap(offer_coin: Coin, ask_denom: String) -> Self {
+        TerraQuery::Swap {
+            offer_coin,
+            ask_denom,
+        }
+    }
+
+    pub fn tax_rate() -> Self {
+        TerraQuery::TaxRate {}
+    }
+
+    pub fn tax_cap(denom: String) -> Self {
+        TerraQuery::TaxCap { denom }
+    }
+
+    pub fn exchange_rates(base_denom: String, quote_denoms: Vec<String>) -> Self {
+        TerraQuery::ExchangeRates {
+            base_denom,
+            quote_denoms,
+        }
+    }
+}
+
 /// SwapResponse is data format returned from SwapRequest::Simulate query
 #[cw_serde]
 pub struct SwapResponse {
