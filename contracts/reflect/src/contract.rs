@@ -2,7 +2,7 @@ use cosmwasm_std::{
     entry_point, to_binary, to_vec, ContractResult, CosmosMsg, Deps, DepsMut, Env, MessageInfo,
     QueryRequest, QueryResponse, Reply, Response, StdError, StdResult, SubMsg, SystemResult,
 };
-use terra_bindings::{TerraMsg, TerraQuery};
+use classic_bindings::{TerraMsg, TerraQuery};
 
 use crate::errors::ReflectError;
 use crate::msg::{ChainResponse, ExecuteMsg, InstantiateMsg, OwnerResponse, QueryMsg};

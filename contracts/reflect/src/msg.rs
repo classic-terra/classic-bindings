@@ -1,7 +1,7 @@
 use cosmwasm_schema::{cw_serde, QueryResponses};
 use cosmwasm_std::{Binary, CosmosMsg, QueryRequest, SubMsg};
 
-use terra_bindings::{TerraMsg, TerraQuery};
+use classic_bindings::{TerraMsg, TerraQuery};
 
 #[cw_serde]
 pub struct InstantiateMsg {}
