@@ -1,0 +1,20 @@
+[package]
+name = "terra-cosmwasm"
+version = "3.0.0"
+authors = ["Yun Yeo <YunSuk-Yeo@users.noreply.github.com>", "Ethan Frey <ethanfrey@users.noreply.github.com>"]
+edition = "2018"
+description = "Bindings for CosmWasm contracts to call into custom modules of Terra Core"
+repository = "https://github.com/terra-project/terra-cosmwasm"
+license = "Apache-2.0"
+readme = "README.md"
+
+[features]
+backtraces = ["cosmwasm-std/backtraces"]
+
+[dependencies]
+cosmwasm-std = "1.1.0"
+schemars = "0.8.1"
+serde = { version = "1.0.103", default-features = false, features = ["derive"] }
+
+[dev-dependencies]
+cosmwasm-schema = "1.1.0"

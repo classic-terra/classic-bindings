@@ -1,4 +1,4 @@
-use cosmwasm_std::{Coin, QuerierWrapper, QueryRequest, StdResult};
+use cosmwasm_std::{Coin, QuerierWrapper, QueryRequest, StdResult, ContractInfoResponse};
 
 use crate::query::{
     SwapResponse, TaxRateResponse, TaxCapResponse, ExchangeRatesResponse, TerraQuery
@@ -57,4 +57,12 @@ impl<'a> TerraQuerier<'a> {
         let request: QueryRequest<TerraQuery> = TerraQuery::into(request);
         self.querier.query(&request)
     }
+
+    pub fn query_contract_info<T: Into<String>>(
+        &self,
+        contract_address: T,
+    ) -> StdResult<ContractInfoResponse> {
+        self.querier.query_wasm_contract_info(contract_address.into())
+    }
+
 }
