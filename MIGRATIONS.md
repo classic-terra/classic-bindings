@@ -7,3 +7,5 @@
 6. Replace `terra_cosmwasm::create_swap_msg` to `classic_bindings::TerraMsg::create_swap_msg`
 
 Example of migrated terra bindings: [here](contracts/old-bindings-tester/README.md)
+
+Cargo for classic-bindings: https://crates.io/crates/classic-bindings
