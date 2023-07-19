@@ -1,7 +1,7 @@
 use std::str::FromStr;
 use std::convert::TryFrom;
 
-use classic_rust::types::{terra::{market::v1beta1::QuerySwapRequest, treasury::v1beta1::{QueryTaxCapRequest, QueryTaxRateRequest, QueryTaxRateResponse}, oracle::v1beta1::QueryExchangeRateRequest}, cosmos::base};
+use classic_rust::types::terra::{market::v1beta1::QuerySwapRequest, treasury::v1beta1::{QueryTaxCapRequest, QueryTaxRateRequest}, oracle::v1beta1::QueryExchangeRateRequest};
 use cosmwasm_std::{Coin, QuerierWrapper, QueryRequest, StdResult, ContractInfoResponse, Uint128, Decimal};
 
 use crate::{query::{
@@ -71,11 +71,13 @@ impl<'a> TerraQuerier<'a> {
 
 }
 
+#[cfg(feature = "stargate")]
 /// This is a helper wrapper to easily use our custom queries through stargate query
 pub struct TerraStargateQuerier<'a> {
     querier: &'a QuerierWrapper<'a>,
 }
 
+#[cfg(feature = "stargate")]
 impl<'a> TerraStargateQuerier<'a> {
     pub fn new(querier: &'a QuerierWrapper) -> Self {
         TerraStargateQuerier { querier }

@@ -9,6 +9,14 @@ license = "Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[package.metadata.docs.rs]
+features = [
+    "stargate",
+]
+
+[features]
+stargate = []
+
 [dependencies]
 cosmwasm-schema = "1.1"
 cosmwasm-std = { version = "1.1", features = ["stargate"] }

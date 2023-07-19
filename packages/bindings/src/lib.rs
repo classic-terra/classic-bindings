@@ -1,10 +1,11 @@
 mod msg;
-mod state;
 mod query;
 mod querier;
 
 pub use msg::TerraMsg;
-pub use querier::{TerraQuerier, TerraStargateQuerier};
+pub use querier::TerraQuerier;
+#[cfg(feature = "stargate")]
+pub use querier::TerraStargateQuerier;
 pub use query::{
     ExchangeRateItem, ExchangeRatesResponse, SwapResponse, TaxCapResponse,
     TaxRateResponse, TerraQuery
