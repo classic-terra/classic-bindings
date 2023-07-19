@@ -3,6 +3,7 @@ use cosmwasm_std::{Coin, CustomQuery, Decimal, Uint128};
 
 impl CustomQuery for TerraQuery {}
 
+// TerraQuery for custom bindings
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum TerraQuery {
@@ -78,4 +79,26 @@ pub struct ExchangeRateItem {
 pub struct ExchangeRatesResponse {
     pub base_denom: String,
     pub exchange_rates: Vec<ExchangeRateItem>,
+}
+
+// TerraStargateQuery
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum TerraStargateQuery {
+    #[returns(SwapResponse)]
+    Swap {
+        offer_coin: String,
+        ask_denom: String,
+    },
+    #[returns(TaxRateResponse)]
+    TaxRate {},
+    #[returns(TaxCapResponse)]
+    TaxCap {
+        denom: String,
+    },
+    #[returns(ExchangeRatesResponse)]
+    ExchangeRates {
+        base_denom: String,
+        quote_denoms: Vec<String>,
+    },
 }

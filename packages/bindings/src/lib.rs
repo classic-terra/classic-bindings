@@ -4,7 +4,7 @@ mod query;
 mod querier;
 
 pub use msg::TerraMsg;
-pub use querier::TerraQuerier;
+pub use querier::{TerraQuerier, TerraStargateQuerier};
 pub use query::{
     ExchangeRateItem, ExchangeRatesResponse, SwapResponse, TaxCapResponse,
     TaxRateResponse, TerraQuery

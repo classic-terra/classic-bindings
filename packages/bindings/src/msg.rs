@@ -1,4 +1,4 @@
-use cosmwasm_schema::{cw_serde};
+use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Coin, CosmosMsg, CustomMsg};
 
 /// A number of Custom messages that can call into the Terra bindings
