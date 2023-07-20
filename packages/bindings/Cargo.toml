@@ -6,6 +6,7 @@ edition = "2021"
 description = "Bindings for CustomMsg and CustomQuery for the Terra Classic blockchain"
 repository = "https://github.com/classic-terra/terra-bindings"
 license = "Apache-2.0"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
