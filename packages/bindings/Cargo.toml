@@ -1,18 +1,27 @@
 [package]
 name = "classic-bindings"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["nghuyenthevinh2000 <nghuyenthevinh@gmail.com>"]
 edition = "2021"
 description = "Bindings for CustomMsg and CustomQuery for the Terra Classic blockchain"
 repository = "https://github.com/classic-terra/terra-bindings"
 license = "Apache-2.0"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[package.metadata.docs.rs]
+features = [
+    "stargate",
+]
+
+[features]
+stargate = []
+
 [dependencies]
 cosmwasm-schema = "1.1"
-cosmwasm-std = "1.1"
+cosmwasm-std = { version = "1.1", features = ["stargate"] }
 schemars = "0.8"
 serde = { version = "1.0", default-features = false, features = ["derive"] }
-
-[dev-dependencies]
+prost = "0.11"
+classic-rust = "0.1.0"

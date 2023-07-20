@@ -3,6 +3,7 @@ use cosmwasm_std::{Coin, CustomQuery, Decimal, Uint128};
 
 impl CustomQuery for TerraQuery {}
 
+// TerraQuery for custom bindings
 #[cw_serde]
 #[derive(QueryResponses)]
 pub enum TerraQuery {
