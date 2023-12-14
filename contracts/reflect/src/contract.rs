@@ -1,5 +1,5 @@
 use cosmwasm_std::{
-    entry_point, to_binary, to_vec, ContractResult, CosmosMsg, Deps, DepsMut, Env, MessageInfo,
+    entry_point, to_json_binary, to_json_vec, ContractResult, CosmosMsg, Deps, DepsMut, Env, MessageInfo,
     QueryRequest, QueryResponse, Reply, Response, StdError, StdResult, SubMsg, SystemResult,
 };
 use classic_bindings::{TerraMsg, TerraQuery};
@@ -114,9 +114,9 @@ pub fn reply(deps: DepsMut<TerraQuery>, _env: Env, msg: Reply) -> Result<Respons
 #[entry_point]
 pub fn query(deps: Deps<TerraQuery>, _env: Env, msg: QueryMsg) -> StdResult<QueryResponse> {
     match msg {
-        QueryMsg::Owner {} => to_binary(&query_owner(deps)?),
-        QueryMsg::Chain { request } => to_binary(&query_chain(deps, &request)?),
-        QueryMsg::SubMsgResult { id } => to_binary(&query_subcall(deps, id)?),
+        QueryMsg::Owner {} => to_json_binary(&query_owner(deps)?),
+        QueryMsg::Chain { request } => to_json_binary(&query_chain(deps, &request)?),
+        QueryMsg::SubMsgResult { id } => to_json_binary(&query_subcall(deps, id)?),
     }
 }
 
@@ -137,7 +137,7 @@ fn query_chain(
     deps: Deps<TerraQuery>,
     request: &QueryRequest<TerraQuery>,
 ) -> StdResult<ChainResponse> {
-    let raw = to_vec(request).map_err(|serialize_err| {
+    let raw = to_json_vec(request).map_err(|serialize_err| {
         StdError::generic_err(format!("Serializing QueryRequest: {}", serialize_err))
     })?;
     match deps.querier.raw_query(&raw) {
@@ -160,7 +160,7 @@ mod tests {
         mock_env, mock_info, MockApi, MockQuerier, MockStorage, MOCK_CONTRACT_ADDR,
     };
     use cosmwasm_std::{
-        coin, coins, from_binary, AllBalanceResponse, BankMsg, BankQuery, Binary, Coin, Event,
+        coin, coins, from_json, AllBalanceResponse, BankMsg, BankQuery, Binary, Coin, Event,
         StakingMsg, StdError, SubMsgResponse,
     };
     use cosmwasm_std::{OwnedDeps, SubMsgResult, SystemError};
@@ -370,8 +370,8 @@ mod tests {
             .into(),
         };
         let response = query(deps.as_ref(), mock_env(), msg).unwrap();
-        let outer: ChainResponse = from_binary(&response).unwrap();
-        let inner: AllBalanceResponse = from_binary(&outer.data).unwrap();
+        let outer: ChainResponse = from_json(&response).unwrap();
+        let inner: AllBalanceResponse = from_json(&outer.data).unwrap();
         assert_eq!(inner.amount, coins(123, "ucosm"));
 
         // TODO? or better in multitest?
@@ -380,8 +380,8 @@ mod tests {
         //     request: TerraQuery::Ping {}.into(),
         // };
         // let response = query(deps.as_ref(), mock_env(), msg).unwrap();
-        // let outer: ChainResponse = from_binary(&response).unwrap();
-        // let inner: SpecialResponse = from_binary(&outer.data).unwrap();
+        // let outer: ChainResponse = from_json(&response).unwrap();
+        // let inner: SpecialResponse = from_json(&outer.data).unwrap();
         // assert_eq!(inner.msg, "pong");
     }
 
@@ -442,7 +442,7 @@ mod tests {
 
         // query for the real id
         let raw = query(deps.as_ref(), mock_env(), QueryMsg::SubMsgResult { id }).unwrap();
-        let qres: Reply = from_binary(&raw).unwrap();
+        let qres: Reply = from_json(&raw).unwrap();
         assert_eq!(qres.id, id);
         let result = qres.result.unwrap();
         assert_eq!(result.data, Some(data));

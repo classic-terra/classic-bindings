@@ -1,7 +1,7 @@
 #[cfg(not(feature = "imported"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    to_binary, Addr, Coin, Deps, DepsMut, Env, MessageInfo, QueryResponse, Response, StdError,
+    to_json_binary, Addr, Coin, Deps, DepsMut, Env, MessageInfo, QueryResponse, Response, StdError,
     StdResult, ContractInfoResponse
 };
 
@@ -71,15 +71,15 @@ pub fn query(deps: Deps<TerraQuery>, _env: Env, msg: QueryMsg) -> StdResult<Quer
         QueryMsg::Swap {
             offer_coin,
             ask_denom,
-        } => to_binary(&query_swap(deps, offer_coin, ask_denom)?),
-        QueryMsg::TaxRate {} => to_binary(&query_tax_rate(deps)?),
-        QueryMsg::TaxCap { denom } => to_binary(&query_tax_cap(deps, denom)?),
+        } => to_json_binary(&query_swap(deps, offer_coin, ask_denom)?),
+        QueryMsg::TaxRate {} => to_json_binary(&query_tax_rate(deps)?),
+        QueryMsg::TaxCap { denom } => to_json_binary(&query_tax_cap(deps, denom)?),
         QueryMsg::ExchangeRates {
             base_denom,
             quote_denoms,
-        } => to_binary(&query_exchange_rates(deps, base_denom, quote_denoms)?),
+        } => to_json_binary(&query_exchange_rates(deps, base_denom, quote_denoms)?),
         QueryMsg::ContractInfo { contract_address } => {
-            to_binary(&query_contract_info(deps, contract_address)?)
+            to_json_binary(&query_contract_info(deps, contract_address)?)
         }
     }
 }

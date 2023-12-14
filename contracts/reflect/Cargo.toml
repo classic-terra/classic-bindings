@@ -17,10 +17,10 @@ crate-type = ["cdylib", "rlib"]
 backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
-cosmwasm-schema = "1.1"
-cosmwasm-std = { version = "1.1", features = ["staking", "stargate"] }
-cosmwasm-storage = "1.1"
-classic-bindings = { version = "0.2.0", path = "../../packages/bindings" }
+cosmwasm-schema = "1.5"
+cosmwasm-std = { version = "1.5", features = ["staking", "stargate"] }
+cosmwasm-storage = "1.5"
+classic-bindings = { version = "0.2.1", path = "../../packages/bindings" }
 schemars = "0.8"
 serde = { version = "1.0", default-features = false, features = ["derive"] }
 thiserror = "1.0"

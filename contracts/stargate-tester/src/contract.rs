@@ -1,7 +1,7 @@
 use classic_bindings::{TerraQuery, TerraStargateQuerier};
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
-use cosmwasm_std::{Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult, to_binary};
+use cosmwasm_std::{Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult, to_json_binary};
 // use cw2::set_contract_version;
 
 use crate::error::ContractError;
@@ -38,10 +38,10 @@ pub fn query(deps: Deps, _env: Env, msg: TerraQuery) -> StdResult<Binary> {
     let querier = TerraStargateQuerier::new(&deps.querier);
 
     match msg {
-        TerraQuery::Swap { offer_coin, ask_denom } => to_binary(&querier.query_swap(offer_coin, ask_denom)?),
-        TerraQuery::TaxCap { denom } => to_binary(&querier.query_tax_cap(denom)?),
-        TerraQuery::TaxRate { } => to_binary(&querier.query_tax_rate()?),
-        TerraQuery::ExchangeRates { base_denom, quote_denoms } => to_binary(&querier.query_exchange_rates(base_denom, quote_denoms)?),
+        TerraQuery::Swap { offer_coin, ask_denom } => to_json_binary(&querier.query_swap(offer_coin, ask_denom)?),
+        TerraQuery::TaxCap { denom } => to_json_binary(&querier.query_tax_cap(denom)?),
+        TerraQuery::TaxRate { } => to_json_binary(&querier.query_tax_rate()?),
+        TerraQuery::ExchangeRates { base_denom, quote_denoms } => to_json_binary(&querier.query_exchange_rates(base_denom, quote_denoms)?),
     }
 }
 

@@ -22,9 +22,9 @@ backtraces = ["cosmwasm-std/backtraces"]
 library = []
 
 [dependencies]
-cosmwasm-std = "1.1"
-cosmwasm-schema = "1.1"
-classic-bindings = { version = "0.2.0", path = "../../packages/bindings" }
+cosmwasm-std = "1.5"
+cosmwasm-schema = "1.5"
+classic-bindings = { version = "0.2.1", path = "../../packages/bindings", features = ["stargate"] }
 schemars = "0.8.10"
 serde = { version = "1.0.145", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.31" }
